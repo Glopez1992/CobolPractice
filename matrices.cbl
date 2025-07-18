@@ -4,12 +4,13 @@
        DATA DIVISION.
        WORKING-STORAGE SECTION.
 
-       77 N        PIC 99 VALUE 0.
-       77 M        PIC 99 VALUE 0.
-       77 I        PIC 99 VALUE 0.
-       77 J        PIC 99 VALUE 0.
-       77 NUM      PIC 999.
+       77 N PIC 99 VALUE 0.
+       77 M PIC 99 VALUE 0.
+       77 I PIC 99 VALUE 0.
+       77 J PIC 99 VALUE 0.
+       77 NUM PIC 999 VALUE 0.
        77 WS-OPCION PIC 9 VALUE 0.
+
 
        01 MATRIX-1.
           05 ROW-1 OCCURS 10 TIMES.
@@ -27,8 +28,8 @@
                 15 ELEM-3 PIC 999 VALUE 0.
 
        PROCEDURE DIVISION.
-       MAIN-PROGRAM SECTION.
-           PERFORM UNTIL WS-OPTION = 4
+        MAIN-PROGRAM SECTION.
+           PERFORM UNTIL WS-OPCION = 4
                PERFORM MAIN-MENU
                 EVALUATE WS-OPCION
                     WHEN 1
@@ -40,9 +41,10 @@
                      WHEN 4
                         DISPLAY "Saliendo del programa..."
                     WHEN OTHER
-                        DISPLAY "Opción inválida, por favor, intente de nuevo."
-                END-EVALUATE"
-            END-PERFORM."
+                        DISPLAY "Opción inválida, intente de nuevo."
+                END-EVALUATE
+            END-PERFORM.
+
 
 
             MAIN-MENU SECTION.
@@ -90,8 +92,5 @@
                    DISPLAY "M3[" I "," J "] = " ELEM-3(I, J)
                END-PERFORM
            END-PERFORM.
-
-           STOP RUN.
-
-
-
+            STOP RUN.
+            END PROGRAM MATRICES.
