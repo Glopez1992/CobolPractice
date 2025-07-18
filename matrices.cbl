@@ -9,6 +9,7 @@
        77 I        PIC 99 VALUE 0.
        77 J        PIC 99 VALUE 0.
        77 NUM      PIC 999.
+       77 WS-OPCION PIC 9 VALUE 0.
 
        01 MATRIX-1.
           05 ROW-1 OCCURS 10 TIMES.
@@ -26,13 +27,42 @@
                 15 ELEM-3 PIC 999 VALUE 0.
 
        PROCEDURE DIVISION.
-       MAIN-SECTION.
+       MAIN-PROGRAM SECTION.
+           PERFORM UNTIL WS-OPTION = 4
+               PERFORM MAIN-MENU
+                EVALUATE WS-OPCION
+                    WHEN 1
+                        PERFORM DIMENSIONAR-MATRICES
+                    WHEN 2
+                        PERFORM CARGAR-MATRICES
+                    WHEN 3
+                        PERFORM SUMAR-MATRICES
+                     WHEN 4
+                        DISPLAY "Saliendo del programa..."
+                    WHEN OTHER
+                        DISPLAY "Opción inválida, por favor, intente de nuevo."
+                END-EVALUATE"
+            END-PERFORM."
 
+
+            MAIN-MENU SECTION.
+                DISPLAY "------MENU PRINCIPAL-------"
+                DISPLAY "1. Dimensionar Matrices"
+                DISPLAY "2. Cargar elementos en Matrices"
+                DISPLAY "3. Sumar Matrices"
+                DISPLAY "4. Salir"
+                DISPLAY "Ingrese una opción (1-4):  " WITH NO ADVANCING
+                ACCEPT WS-OPCION.
+
+
+           DIMENSIONAR-MATRICES SECTION.
            DISPLAY "Ingrese cantidad de filas (max 10):"
            ACCEPT N.
            DISPLAY "Ingrese cantidad de columnas (max 10):"
            ACCEPT M.
+           DISPLAY "Cargando matrices de tamaño " N "x" M.
 
+           CARGAR-MATRICES SECTION.
            DISPLAY "Ingrese los elementos de la primera matriz:"
            PERFORM VARYING I FROM 1 BY 1 UNTIL I > N
                PERFORM VARYING J FROM 1 BY 1 UNTIL J > M
@@ -41,6 +71,7 @@
                    MOVE NUM TO ELEM-1(I, J)
                END-PERFORM
            END-PERFORM.
+
 
            DISPLAY "Ingrese los elementos de la segunda matriz:"
            PERFORM VARYING I FROM 1 BY 1 UNTIL I > N
@@ -51,6 +82,7 @@
                END-PERFORM
            END-PERFORM.
 
+           SUMAR-MATRICES SECTION.
            DISPLAY "Resultado de la suma de matrices:"
            PERFORM VARYING I FROM 1 BY 1 UNTIL I > N
                PERFORM VARYING J FROM 1 BY 1 UNTIL J > M
