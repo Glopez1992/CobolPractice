@@ -11,6 +11,7 @@
  77 J PIC 99 VALUE 0.
  77 NUM PIC 999 VALUE 0.
  77 WS-OPCION PIC 9 VALUE 0.
+ 77 SEPARADOR PIC X(80).
 
 
  01 MATRIX-1.
@@ -59,10 +60,21 @@
 
 
  DIMENSIONAR-MATRICES SECTION.
+ PERFORM UNTIL N >= 1 AND N <= 10
  DISPLAY "Ingrese cantidad de filas (max 10):" 
- ACCEPT N.
+ ACCEPT N
+ IF N > 10 OR N < 1
+ DISPLAY "Error: el número debe estar entre 1 y 10." 
+ END-IF
+ END-PERFORM.
+
+ PERFORM UNTIL M >= 1 AND M <= 10
  DISPLAY "Ingrese cantidad de columnas (max 10):" 
- ACCEPT M.
+ ACCEPT M
+ IF M > 10 OR M < 1
+ DISPLAY "Error: el número debe estar entre 1 y 10." 
+ END-IF
+ END-PERFORM.
  DISPLAY "Cargando matrices de tamaño " N "x" M.
 
  CARGAR-MATRICES SECTION.
@@ -90,7 +102,7 @@
  PERFORM VARYING I FROM 1 BY 1 UNTIL I > N
  PERFORM VARYING J FROM 1 BY 1 UNTIL J > M
  COMPUTE ELEM-3(I, J) = ELEM-1(I, J) + ELEM-2(I, J)
- DISPLAY "M3[" I "," J "] = " ELEM-3(I, J)
+ DISPLAY MATRIX-3(I, J)
  END-PERFORM
  END-PERFORM.
  STOP RUN.
