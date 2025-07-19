@@ -10,7 +10,7 @@
        77 J PIC 99 VALUE 0.
        77 NUM PIC 999 VALUE 0.
        77 WS-OPCION PIC 9 VALUE 0.
-       77 SEPARADOR     PIC X(80).
+       77 VALOR-VALIDO PIC X VALUE 'N'.
 
 
        01 MATRIX-1.
@@ -44,9 +44,11 @@
                     WHEN 5
                         DISPLAY "Saliendo del programa..."
                     WHEN OTHER
-                        DISPLAY "Opción inválida, intente de nuevo."
+                        DISPLAY "Opcion invalida, intente de nuevo."
                 END-EVALUATE
             END-PERFORM.
+            STOP RUN.
+
 
 
 
@@ -66,7 +68,7 @@
                DISPLAY "Ingrese cantidad de filas (max 10):"
                ACCEPT N
                IF N > 10 OR N < 1
-                   DISPLAY "Error: el número debe estar entre 1 y 10."
+                   DISPLAY "Error: el numero debe estar entre 1 y 10."
                END-IF
            END-PERFORM.
 
@@ -74,13 +76,13 @@
              DISPLAY "Ingrese cantidad de columnas (max 10):"
              ACCEPT M
              IF M > 10 OR M < 1
-               DISPLAY "Error: el número debe estar entre 1 y 10."
+               DISPLAY "Error: el numero debe estar entre 1 y 10."
              END-IF
            END-PERFORM.
              DISPLAY "Cargando matrices de tamaño " N "x" M.
 
            CARGAR-MATRICES SECTION.
-           DISPLAY "Ingrese los elementos de la primera matriz:"
+           DISPLAY "Ingrese elementos de la primera matriz(0-1000):"
            PERFORM VARYING I FROM 1 BY 1 UNTIL I > N
                PERFORM VARYING J FROM 1 BY 1 UNTIL J > M
                    DISPLAY "Elemento [" I "," J "] de M1:"
@@ -90,7 +92,7 @@
            END-PERFORM.
 
 
-           DISPLAY "Ingrese los elementos de la segunda matriz:"
+           DISPLAY "Ingrese los elementos de la segunda matriz(0-1000):"
            PERFORM VARYING I FROM 1 BY 1 UNTIL I > N
                PERFORM VARYING J FROM 1 BY 1 UNTIL J > M
                    DISPLAY "Elemento [" I "," J "] de M2:"
@@ -107,9 +109,14 @@
                      DISPLAY "M3[" I "," J "] = " ELEM-3(I, J)
                     END-PERFORM
                 END-PERFORM.
-            STOP RUN.
-            END PROGRAM MATRICES.
+
 
             BUSCAR-IGUALES SECTION.
-               DISPLAY "Elementos iguales en la misma posición: "
+               DISPLAY "Elementos iguales en la misma posicion: "
+               PERFORM VARYING I FROM 1 BY 1 UNTIL I > N
+                    PERFORM VARYING J FROM 1 BY 1 UNTIL J > M
+                        IF ELEM-1(I,J) = ELEM-2(I,J)
+                         DISPLAY "Posicion ["I", "J"] = " ELEM-1(I,J)
+                    END-PERFORM
+               END-PERFORM.
 
